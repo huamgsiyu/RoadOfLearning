@@ -2,10 +2,7 @@ package com.imooc.mybatis.mapper;
 
 import com.imooc.mybatis.entity.User;
 import com.imooc.mybatis.model.UserShortCut;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -70,4 +67,14 @@ public interface UserMapper {
      * @return  {@link List<UserShortCut>}
      */
     List<UserShortCut> selectUsernameAndAgeWithXml ();
+
+    /**
+     * 插入用户
+     * @param user  用户信息
+     * @return  {@link Integer}
+     */
+    @Insert("insert into imooc_user(id,username,age,score) values(#{id},#{username},#{age},#{score})")
+    Integer insertUser (User user);
+
+    Integer insertUserWithXml (User user);
 }

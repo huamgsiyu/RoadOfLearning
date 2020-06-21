@@ -82,4 +82,36 @@ public class StartWithMapper {
         List<UserShortCut> userShortCuts = mapper.selectUsernameAndAgeWithXml();
         userShortCuts.forEach(System.out::println);
     }
+
+    @Test
+    public void insertUser () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setId(10);
+        user.setUsername("hsy");
+        user.setAge(11);
+        user.setScore(1000);
+        Integer integer = mapper.insertUser(user);
+        System.out.println("integer = " + integer);
+
+    }
+
+    @Test
+    public void insertUserWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setId(11);
+        user.setUsername("hsy1");
+        user.setAge(111);
+        user.setScore(10001);
+        Integer integer = mapper.insertUser(user);
+        System.out.println("integer = " + integer);
+
+    }
 }

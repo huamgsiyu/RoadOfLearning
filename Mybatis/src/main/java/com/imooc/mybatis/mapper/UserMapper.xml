@@ -38,4 +38,9 @@
     <sql id="selectUser">
         select * from imooc_user
     </sql>
+
+    <insert id="insertUserWithXml" parameterType="com.imooc.mybatis.entity.User">
+        insert into imooc_user(id, username, age, score)
+        values(#{id}, #{username}, #{age}, #{score})
+    </insert>
 </mapper>
