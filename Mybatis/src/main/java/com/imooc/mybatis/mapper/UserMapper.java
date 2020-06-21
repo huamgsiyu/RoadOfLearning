@@ -76,5 +76,26 @@ public interface UserMapper {
     @Insert("insert into imooc_user(id,username,age,score) values(#{id},#{username},#{age},#{score})")
     Integer insertUser (User user);
 
+    /**
+     * 插入用户
+     * @param user  用户信息
+     * @return  {@link Integer}
+     */
     Integer insertUserWithXml (User user);
+
+    /**
+     * 插入用户
+     * @param user  用户信息
+     * @return  {@link Integer} 改变行数
+     */
+    @Insert("insert into imooc_user(username, age, score) values(#{username}, #{age}, #{score})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    Integer insertUserNoId (User user);
+
+    /**
+     * 插入用户
+     * @param user  用户信息
+     * @return  {@link Integer} 改变行数
+     */
+    Integer insertUserNoIdWithXml (User user);
 }

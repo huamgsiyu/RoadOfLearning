@@ -59,6 +59,15 @@ public class User {
         this.score = score;
     }
 
+    public User() {
+    }
+
+    public User(String username, Integer age, Integer score) {
+        this.username = username;
+        this.age = age;
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "User{" +

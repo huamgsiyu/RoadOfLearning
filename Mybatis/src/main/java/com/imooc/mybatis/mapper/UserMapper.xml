@@ -43,4 +43,9 @@
         insert into imooc_user(id, username, age, score)
         values(#{id}, #{username}, #{age}, #{score})
     </insert>
+
+    <insert id="insertUserNoIdWithXml" parameterType="com.imooc.mybatis.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into imooc_user(username, age, score)
+        values(#{username}, #{age}, #{score})
+    </insert>
 </mapper>

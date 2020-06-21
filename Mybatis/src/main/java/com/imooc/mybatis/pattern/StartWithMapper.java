@@ -45,6 +45,7 @@ public class StartWithMapper {
         user.setScore(100);
         User selectUser = userMapper.selectUserByAgeAndScore(user);
         System.out.println("selectUser = " + selectUser.toString());
+        sqlSession.close();
     }
 
     @Test
@@ -59,6 +60,7 @@ public class StartWithMapper {
         paramUser.setScore(100);
         User user = mapper.selectUserByAgeAndScoreWithXml(paramUser);
         System.out.println("user = " + user);
+        sqlSession.close();
     }
 
     @Test
@@ -70,6 +72,7 @@ public class StartWithMapper {
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         List<UserShortCut> userShortCuts = mapper.selectUsernameAndAge();
         userShortCuts.forEach(System.out::println);
+        sqlSession.close();
     }
 
     @Test
@@ -81,6 +84,7 @@ public class StartWithMapper {
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         List<UserShortCut> userShortCuts = mapper.selectUsernameAndAgeWithXml();
         userShortCuts.forEach(System.out::println);
+        sqlSession.close();
     }
 
     @Test
@@ -95,7 +99,9 @@ public class StartWithMapper {
         user.setAge(11);
         user.setScore(1000);
         Integer integer = mapper.insertUser(user);
+        sqlSession.commit();
         System.out.println("integer = " + integer);
+        sqlSession.close();
 
     }
 
@@ -111,7 +117,35 @@ public class StartWithMapper {
         user.setAge(111);
         user.setScore(10001);
         Integer integer = mapper.insertUser(user);
+        sqlSession.commit();
         System.out.println("integer = " + integer);
+        sqlSession.close();
 
+    }
+
+    @Test
+    public void insertUserNoId () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User("hsy", 22, 1024);
+        Integer integer = mapper.insertUserNoId(user);
+        sqlSession.commit();
+        System.out.println("id = " + user.getId());
+        sqlSession.close();
+    }
+
+    @Test
+    public void insertUserNoIdWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User("hsy", 22, 1024);
+        Integer integer = mapper.insertUserNoIdWithXml(user);
+        sqlSession.commit();
+        System.out.println("id = " + user.getId());
+        sqlSession.close();
     }
 }
