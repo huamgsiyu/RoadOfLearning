@@ -26,6 +26,15 @@
         where age = #{age} and score = #{score}
     </select>
 
+    <select id="selectUsernameAndAgeWithXml" resultMap="usernameAndAge">
+        <include refid="selectUser" />
+    </select>
+
+    <resultMap id="usernameAndAge" type="com.imooc.mybatis.model.UserShortCut">
+        <result property="username" column="username" />
+        <result property="age" column="age" />
+    </resultMap>
+
     <sql id="selectUser">
         select * from imooc_user
     </sql>

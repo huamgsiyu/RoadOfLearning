@@ -1,8 +1,13 @@
 package com.imooc.mybatis.mapper;
 
 import com.imooc.mybatis.entity.User;
+import com.imooc.mybatis.model.UserShortCut;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * UserMapper
@@ -47,4 +52,22 @@ public interface UserMapper {
      * @return  {@link User}
      */
     User selectUserByAgeAndScoreWithXml(User user);
+
+    /**
+     * 获取姓名和年龄
+     * @return  {@link List<UserShortCut>}
+     */
+    @Results({
+            @Result(property = "username", column = "username"),
+            @Result(property = "age", column = "age")
+    })
+    @Select("select * from imooc_user")
+    List<UserShortCut> selectUsernameAndAge ();
+
+
+    /**
+     * 获取姓名和年龄
+     * @return  {@link List<UserShortCut>}
+     */
+    List<UserShortCut> selectUsernameAndAgeWithXml ();
 }
