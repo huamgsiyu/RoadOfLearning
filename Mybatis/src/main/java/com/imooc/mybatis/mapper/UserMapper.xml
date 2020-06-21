@@ -6,4 +6,16 @@
     <select id = "selectUserAgeById" resultType = "java.lang.Integer">
         select age from imooc_user where id = #{id}
     </select>
+
+    <select id = "selectUserByAgeAndScoreWithXml"
+            parameterType = "com.imooc.mybatis.entity.User"
+            resultType = "com.imooc.mybatis.entity.User">
+        select id,
+               username,
+               age,
+               score
+        from imooc_user
+        where age = #{age}
+            and score = #{score}
+    </select>
 </mapper>
