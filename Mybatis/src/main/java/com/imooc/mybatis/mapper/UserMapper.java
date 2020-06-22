@@ -136,4 +136,32 @@ public interface UserMapper {
      * @return  {@link List<User>}
      */
     List<User> ognlOr (User user);
+
+    /**
+     * 查询用户信息
+     * @param user  查询条件
+     * @return  {@link List<User>}
+     */
+    @Select({"<script>",
+            "select id, ",
+                "username, ",
+            "age, ",
+            "score ",
+            "from imooc_user ",
+            "where username = #{username} ",
+                "<when test='age != null'>",
+                    "and age = #{age}",
+                "</when>",
+                "<when test='score != null'>",
+                    "and score = #{score}",
+                "</when>",
+            "</script>"})
+    List<User> selectUserByNameCondition (User user);
+
+    /**
+     * 查询用户信息
+     * @param user  查询条件
+     * @return  {@link List<User>}
+     */
+    List<User> selectUserByNameConditionWithXml (User user);
 }
