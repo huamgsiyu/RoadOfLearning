@@ -103,4 +103,18 @@
                 </otherwise>
             </choose>
     </select>
+
+    <select id="selectUserByWhereWithXml" parameterType="com.imooc.mybatis.entity.User"
+            resultType="com.imooc.mybatis.entity.User">
+        select *
+        from imooc_user
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+        </where>
+    </select>
 </mapper>

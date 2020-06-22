@@ -272,4 +272,32 @@ public class StartWithMapper {
         users.forEach(System.out::println);
         sqlSession.close();
     }
+
+    @Test
+    public void selectUserByWhere () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+//        user.setId(5);
+//        user.setUsername("tom");
+        List<User> users = mapper.selectUserByWhere(user);
+        users.forEach(System.out::println);
+        sqlSession.close();
+    }
+
+    @Test
+    public void selectUserByWhereWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+//        user.setId(5);
+//        user.setUsername("tom");
+        List<User> users = mapper.selectUserByWhereWithXml(user);
+        users.forEach(System.out::println);
+        sqlSession.close();
+    }
 }

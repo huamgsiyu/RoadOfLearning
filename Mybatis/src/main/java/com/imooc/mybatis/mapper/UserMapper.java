@@ -195,4 +195,30 @@ public interface UserMapper {
      * @return  {@link List<User>}
      */
     List<User> selectUserByIdOrNameWithXml (User user);
+
+    /**
+     * 查询用户
+     * @param user  用户信息
+     * @return  {@link List<User>}
+     */
+    @Select({"<script>",
+                "select * from imooc_user",
+                "<where>",
+                    "<if test='id != null'>",
+                        "id = #{id}",
+                    "</if>",
+                    "<if test='username != null'>",
+                        "and username = #{username}",
+                    "</if>",
+                "</where>",
+                "</script>"
+    })
+    List<User> selectUserByWhere (User user);
+
+    /**
+     * 查询用户
+     * @param user  用户信息
+     * @return  {@link List<User>}
+     */
+    List<User> selectUserByWhereWithXml (User user);
 }
