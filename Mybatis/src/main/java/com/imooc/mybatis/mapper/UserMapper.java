@@ -113,4 +113,20 @@ public interface UserMapper {
      * @return  {@link Integer}
      */
     Integer updateAgeByIdWithXml (User user);
+
+    /**
+     * 删除用户
+     * @param id    主键
+     * @return  {@link Integer} 变动行数
+     */
+    @Delete("delete from imooc_user where id = #{id}")
+    Integer deleteUserById (Integer id);
+
+
+    /**
+     * 删除用户
+     * @param id    主键
+     * @return  {@link Integer} 变动行数
+     */
+    Integer deleteUserByIdWithXml (Integer id);
 }

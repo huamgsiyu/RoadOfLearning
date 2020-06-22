@@ -53,4 +53,8 @@
         update imooc_user set age = #{age}
         where id = #{id}
     </update>
+
+    <delete id="deleteUserByIdWithXml" parameterType="com.imooc.mybatis.entity.User">
+        delete from imooc_user where id = #{id}
+    </delete>
 </mapper>

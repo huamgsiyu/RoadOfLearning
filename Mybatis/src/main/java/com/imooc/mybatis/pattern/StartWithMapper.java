@@ -174,4 +174,29 @@ public class StartWithMapper {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Test
+    public void deleteUserById () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        Integer integer = mapper.deleteUserById(1);
+        System.out.println("删除是否成功 = " + (integer == 0 ? "失败" : "成功"));
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+
+    @Test
+    public void deleteUserByIdWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        Integer integer = mapper.deleteUserById(2);
+        System.out.println("删除是否成功 = " + (integer == 0 ? "失败" : "成功"));
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }
