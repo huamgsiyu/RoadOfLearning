@@ -98,4 +98,19 @@ public interface UserMapper {
      * @return  {@link Integer} 改变行数
      */
     Integer insertUserNoIdWithXml (User user);
+
+    /**
+     * 更新年龄
+     * @param user    用户
+     * @return  {@link Integer}
+     */
+    @Update("update imooc_user set age = #{age} where id = #{id}")
+    Integer updateAgeById (User user);
+
+    /**
+     * 更新年龄
+     * @param user    用户
+     * @return  {@link Integer}
+     */
+    Integer updateAgeByIdWithXml (User user);
 }

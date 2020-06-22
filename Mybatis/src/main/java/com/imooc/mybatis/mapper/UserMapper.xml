@@ -48,4 +48,9 @@
         insert into imooc_user(username, age, score)
         values(#{username}, #{age}, #{score})
     </insert>
+
+    <update id="updateAgeByIdWithXml" parameterType="com.imooc.mybatis.entity.User">
+        update imooc_user set age = #{age}
+        where id = #{id}
+    </update>
 </mapper>

@@ -62,6 +62,11 @@ public class User {
     public User() {
     }
 
+    public User(Integer id, Integer age) {
+        this.id = id;
+        this.age = age;
+    }
+
     public User(String username, Integer age, Integer score) {
         this.username = username;
         this.age = age;

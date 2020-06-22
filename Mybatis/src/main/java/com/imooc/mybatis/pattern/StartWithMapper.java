@@ -148,4 +148,30 @@ public class StartWithMapper {
         System.out.println("id = " + user.getId());
         sqlSession.close();
     }
+
+    @Test
+    public void updateAgeById () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User(11, 38);
+        Integer integer = mapper.updateAgeById(user);
+        System.out.println("更新是否成功 = " + (integer == 0 ? "失败" : "成功"));
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void updateAgeByIdWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User(11, 39);
+        Integer integer = mapper.updateAgeByIdWithXml(user);
+        System.out.println("更新是否成功 = " + (integer == 0 ? "失败" : "成功"));
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }
