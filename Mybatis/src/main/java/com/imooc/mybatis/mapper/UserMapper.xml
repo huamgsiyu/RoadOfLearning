@@ -57,4 +57,16 @@
     <delete id="deleteUserByIdWithXml" parameterType="com.imooc.mybatis.entity.User">
         delete from imooc_user where id = #{id}
     </delete>
+
+    <select id="ognlOr" parameterType="com.imooc.mybatis.entity.User" resultType="com.imooc.mybatis.entity.User">
+        select id,
+               username,
+               age,
+               score
+        from imooc_user
+        where username = #{username}
+        <if test="age != null and age > 0">
+            and age = #{user.age}
+        </if>
+    </select>
 </mapper>

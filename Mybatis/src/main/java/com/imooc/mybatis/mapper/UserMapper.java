@@ -129,4 +129,11 @@ public interface UserMapper {
      * @return  {@link Integer} 变动行数
      */
     Integer deleteUserByIdWithXml (Integer id);
+
+    /**
+     * 查询多个用户
+     * @param user  用户
+     * @return  {@link List<User>}
+     */
+    List<User> ognlOr (User user);
 }

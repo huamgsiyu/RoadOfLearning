@@ -194,9 +194,24 @@ public class StartWithMapper {
                 new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        Integer integer = mapper.deleteUserById(2);
+        Integer integer = mapper.deleteUserByIdWithXml(3);
         System.out.println("删除是否成功 = " + (integer == 0 ? "失败" : "成功"));
         sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void ognlOr () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUsername("hsy");
+        user.setAge(11);
+//        user.setScore(100);
+        List<User> users = mapper.ognlOr(user);
+        users.forEach(System.out::println);
         sqlSession.close();
     }
 }
