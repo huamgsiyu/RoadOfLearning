@@ -300,4 +300,19 @@ public class StartWithMapper {
         users.forEach(System.out::println);
         sqlSession.close();
     }
+
+    @Test
+    public void updateUsernameAndScoreByIdWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setId(5);
+        user.setUsername("tom1");
+        Integer integer = mapper.updateUsernameAndScoreByIdWithXml(user);
+        System.out.println("删除是否成功 = " + (integer == 0 ? "失败" : "成功"));
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

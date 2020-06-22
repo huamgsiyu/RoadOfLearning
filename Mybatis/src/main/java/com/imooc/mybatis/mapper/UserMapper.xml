@@ -117,4 +117,18 @@
             </if>
         </where>
     </select>
+
+<!--    由于 SQL update 的语法问题，若 set 标签里面条件均不满足，此时 set 标签也不会添加上 SET 前缀，-->
+<!--    但此时 SQL 会报语法错误，所以 set 标签中还是得有一个必然存在的赋值。-->
+    <update id="updateUsernameAndScoreByIdWithXml"
+            parameterType="com.imooc.mybatis.entity.User">
+        update imooc_user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            id = #{id}
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

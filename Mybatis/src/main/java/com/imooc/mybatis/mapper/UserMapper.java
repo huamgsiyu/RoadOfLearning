@@ -221,4 +221,11 @@ public interface UserMapper {
      * @return  {@link List<User>}
      */
     List<User> selectUserByWhereWithXml (User user);
+
+    /**
+     * 更新
+     * @param user  用户信息
+     * @return  {@link Integer} 变动条数
+     */
+    Integer updateUsernameAndScoreByIdWithXml (User user);
 }
