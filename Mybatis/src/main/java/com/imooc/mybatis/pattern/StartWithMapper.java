@@ -315,4 +315,33 @@ public class StartWithMapper {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Test
+    public void insertUserIfNameNotEmpty () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+        user.setUsername("hsy");
+        Integer integer = mapper.insertUserIfNameNotEmpty(user);
+        sqlSession.commit();
+        sqlSession.close();
+        System.out.println("删除是否成功 = " + (integer == 0 ? "失败" : "成功"));
+    }
+
+    @Test
+    public void insertUserIfNameNotEmptyWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        User user = new User();
+//        user.setUsername("hsy");
+        user.setScore(10000);
+        Integer integer = mapper.insertUserIfNameNotEmptyWithXml(user);
+        sqlSession.commit();
+        sqlSession.close();
+        System.out.println("删除是否成功 = " + (integer == 0 ? "失败" : "成功"));
+    }
 }

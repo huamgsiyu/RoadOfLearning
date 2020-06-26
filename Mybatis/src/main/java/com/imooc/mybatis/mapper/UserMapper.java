@@ -228,4 +228,46 @@ public interface UserMapper {
      * @return  {@link Integer} 变动条数
      */
     Integer updateUsernameAndScoreByIdWithXml (User user);
+
+    /**
+     * 插入用户，如果username为null则不插入username
+     * @param user  用户信息
+     * @return  {@link Integer} 记录变动条数
+     */
+    @Insert({"<script>",
+                "insert into imooc_user",
+                "<trim prefix='(' suffix=')' suffixOverrides=','>",
+                    "<if test='username != null'>",
+                        "username,",
+                    "</if>",
+                    "<if test='age != null'>",
+                        "age,",
+                    "</if>",
+                    "<if test='score != null'>",
+                        "score,",
+                    "</if>",
+                "</trim>",
+                "values",
+                "<trim prefix='(' suffix=')' suffixOverrides=','>",
+                    "<if test='username != null'>",
+                        "#{username},",
+                    "</if>",
+                    "<if test='age != null'>",
+                        "#{age},",
+                    "</if>",
+                    "<if test='score != null'>",
+                        "#{score},",
+                    "</if>",
+                "</trim>",
+            "</script>"
+    })
+    Integer insertUserIfNameNotEmpty (User user);
+
+    /**
+     * 插入用户，如果username为null则不插入username
+     * @param user  用户信息
+     * @return  {@link Integer} 记录变动条数
+     */
+
+    Integer insertUserIfNameNotEmptyWithXml (User user);
 }

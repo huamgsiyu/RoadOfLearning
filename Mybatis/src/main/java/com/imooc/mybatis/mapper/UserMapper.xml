@@ -131,4 +131,31 @@
         </set>
         where id = #{id}
     </update>
+
+    <insert id="insertUserIfNameNotEmptyWithXml" parameterType="com.imooc.mybatis.entity.User">
+        insert into imooc_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="age">
+                age,
+            </if>
+            <if test="score">
+                score,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="age != null">
+                #{age},
+            </if>
+            <if test="score != null">
+                #{score},
+            </if>
+        </trim>
+    </insert>
 </mapper>
