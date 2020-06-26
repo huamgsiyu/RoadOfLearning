@@ -400,4 +400,24 @@ public class StartWithMapper {
         sqlSession.commit();
         sqlSession.close();
     }
+
+    @Test
+    public void selectUserByNamesToArray () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> users = userMapper.selectUserByNamesToArray(new String[] {"hsy", "mike"});
+        users.forEach(System.out::println);
+        sqlSession.close();
+    }
+
+    @Test
+    public void selectUserByNamesWithXmlToArray () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> users = userMapper.selectUserByNamesWithXmlToArray(new String[] {"hsy", "mike"});
+        users.forEach(System.out::println);
+        sqlSession.close();
+    }
 }

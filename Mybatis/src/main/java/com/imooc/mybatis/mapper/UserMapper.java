@@ -318,4 +318,25 @@ public interface UserMapper {
      * @return  {@link Integer} 成功插入条数
      */
     Integer insertBatchUserWithXml (@Param("users") List<User> users);
+
+    @Select({"<script>",
+            "select id, ",
+            "username, ",
+            "age, ",
+            "score",
+            "from imooc_user ",
+            "where username in ",
+            "<foreach collection='names' open='(' close=')' item='item' separator=','>",
+            "#{item}",
+            "</foreach>",
+            "</script>"
+    })
+    List<User> selectUserByNamesToArray (@Param("names") String[] names);
+
+    /**
+     * 根据多个用户名查询用户信息
+     * @param names 用户名
+     * @return  {@link List<User>}
+     */
+    List<User> selectUserByNamesWithXmlToArray (@Param("names") String[] names);
 }
