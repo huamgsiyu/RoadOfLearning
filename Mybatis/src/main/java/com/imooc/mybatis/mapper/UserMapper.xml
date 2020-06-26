@@ -170,4 +170,12 @@
                 #{name}
             </foreach>
     </select>
+
+    <insert id="insertBatchUserWithXml">
+        insert into imooc_user(username, age, score)
+        values
+            <foreach collection="users" item="user" separator=",">
+                (#{user.username}, #{user.age}, #{user.score})
+            </foreach>
+    </insert>
 </mapper>

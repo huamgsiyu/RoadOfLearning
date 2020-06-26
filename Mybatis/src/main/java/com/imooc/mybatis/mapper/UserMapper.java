@@ -295,4 +295,27 @@ public interface UserMapper {
      * @return  {@link List<User>}
      */
     List<User> selectUserByNamesWithXml (@Param("names") List<String> names);
+
+    /**
+     * 批量插入用户
+     * @param users 用户信息
+     * @return  {@link Integer} 成功插入条数
+     */
+    @Insert({"<script>",
+                "insert into imooc_user(username, age, score)",
+                "values",
+                    "<foreach collection='users' item='user' separator=','>",
+                        "(#{user.username}, #{user.age}, #{user.score})",
+                    "</foreach>",
+            "</script>"
+    })
+    Integer insertBatchUser (@Param("users") List<User> users);
+
+
+    /**
+     * 批量插入用户
+     * @param users 用户信息
+     * @return  {@link Integer} 成功插入条数
+     */
+    Integer insertBatchUserWithXml (@Param("users") List<User> users);
 }

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -365,6 +366,38 @@ public class StartWithMapper {
         List<String> names = Arrays.asList("hsy", "mike");
         List<User> users = userMapper.selectUserByNamesWithXml(names);
         users.forEach(System.out::println);
+        sqlSession.close();
+    }
+
+    @Test
+    public void insertBatchUser () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        List<User> users = new ArrayList<>();
+        users.add(new User("hsy", 18, 2000));
+        users.add(new User("hsy1", 19, 2001));
+        users.add(new User("hsy2", 20, 2002));
+        Integer rows = userMapper.insertBatchUser(users);
+        System.out.println("rows = " + rows);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void insertBatchUserWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        List<User> users = new ArrayList<>();
+        users.add(new User("hsy", 18, 2000));
+        users.add(new User("hsy1", 19, 2001));
+        users.add(new User("hsy2", 20, 2002));
+        Integer rows = userMapper.insertBatchUserWithXml(users);
+        System.out.println("rows = " + rows);
+        sqlSession.commit();
         sqlSession.close();
     }
 }
