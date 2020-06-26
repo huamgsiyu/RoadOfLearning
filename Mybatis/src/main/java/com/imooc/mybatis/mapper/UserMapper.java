@@ -268,6 +268,31 @@ public interface UserMapper {
      * @param user  用户信息
      * @return  {@link Integer} 记录变动条数
      */
-
     Integer insertUserIfNameNotEmptyWithXml (User user);
+
+    /**
+     * 根据多个用户名查询用户信息
+     * @param names 用户名
+     * @return  {@link List<User>}
+     */
+    @Select({"<script>",
+                "select id, ",
+                    "username, ",
+                    "age, ",
+                    "score",
+                "from imooc_user ",
+                "where username in ",
+                    "<foreach collection='names' open='(' close=')' item='item' separator=','>",
+                        "#{item}",
+                    "</foreach>",
+            "</script>"
+    })
+    List<User> selectUserByNames (@Param("names") List<String> names);
+
+    /**
+     * 根据多个用户名查询用户信息
+     * @param names 用户名
+     * @return  {@link List<User>}
+     */
+    List<User> selectUserByNamesWithXml (@Param("names") List<String> names);
 }

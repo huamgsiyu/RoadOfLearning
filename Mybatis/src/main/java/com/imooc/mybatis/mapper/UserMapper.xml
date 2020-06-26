@@ -158,4 +158,16 @@
             </if>
         </trim>
     </insert>
+
+    <select id="selectUserByNamesWithXml" resultType="com.imooc.mybatis.entity.User">
+        select id,
+            username,
+            age,
+            score
+        from imooc_user
+        where username in
+            <foreach collection="names" open="(" close=")" item="name" separator=",">
+                #{name}
+            </foreach>
+    </select>
 </mapper>

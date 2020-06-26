@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -343,5 +344,27 @@ public class StartWithMapper {
         sqlSession.commit();
         sqlSession.close();
         System.out.println("删除是否成功 = " + (integer == 0 ? "失败" : "成功"));
+    }
+
+    @Test
+    public void selectUserByNames () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<String> names = Arrays.asList("hsy", "mike");
+        List<User> users = userMapper.selectUserByNames(names);
+        users.forEach(System.out::println);
+        sqlSession.close();
+    }
+
+    @Test
+    public void selectUserByNamesWithXml () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<String> names = Arrays.asList("hsy", "mike");
+        List<User> users = userMapper.selectUserByNamesWithXml(names);
+        users.forEach(System.out::println);
+        sqlSession.close();
     }
 }
