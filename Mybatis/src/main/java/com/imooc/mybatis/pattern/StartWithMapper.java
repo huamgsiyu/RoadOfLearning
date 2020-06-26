@@ -11,9 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * StartWithMapper
@@ -417,6 +415,34 @@ public class StartWithMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         List<User> users = userMapper.selectUserByNamesWithXmlToArray(new String[] {"hsy", "mike"});
+        users.forEach(System.out::println);
+        sqlSession.close();
+    }
+
+    @Test
+    public void selectUserByNamesToMap () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        Map<String, Object> params = new HashMap<>(16);
+        params.put("username", "hsy1");
+        params.put("age", 19);
+        params.put("score", 2001);
+        List<User> users = userMapper.selectUserByNamesToMap(params);
+        users.forEach(System.out::println);
+        sqlSession.close();
+    }
+
+    @Test
+    public void selectUserByNamesWithXmlToMap () throws IOException {
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        Map<String, Object> params = new HashMap<>(16);
+        params.put("username", "hsy1");
+        params.put("age", 19);
+        params.put("score", 2001);
+        List<User> users = userMapper.selectUserByNamesWithXmlToMap(params);
         users.forEach(System.out::println);
         sqlSession.close();
     }

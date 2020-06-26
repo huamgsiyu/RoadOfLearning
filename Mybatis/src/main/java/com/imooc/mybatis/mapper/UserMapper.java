@@ -5,6 +5,7 @@ import com.imooc.mybatis.model.UserShortCut;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * UserMapper
@@ -319,6 +320,11 @@ public interface UserMapper {
      */
     Integer insertBatchUserWithXml (@Param("users") List<User> users);
 
+    /**
+     * 根据多个用户名查询用户信息
+     * @param names 用户名
+     * @return  {@link List<User>}
+     */
     @Select({"<script>",
             "select id, ",
             "username, ",
@@ -339,4 +345,30 @@ public interface UserMapper {
      * @return  {@link List<User>}
      */
     List<User> selectUserByNamesWithXmlToArray (@Param("names") String[] names);
+
+    /**
+     * 根据多个用户名查询用户信息
+     * @param params 参数
+     * @return  {@link List<User>}
+     */
+    @Select({"<script>",
+                "select id, ",
+                    "username, ",
+                    "age, ",
+                    "score",
+                "from imooc_user ",
+                "where ",
+                    "<foreach collection='params' open='(' close=')' item='value' index='key' separator=' and '>",
+                        "${key} = #{value}",
+                    "</foreach>",
+            "</script>"
+    })
+    List<User> selectUserByNamesToMap (@Param("params") Map params);
+
+    /**
+     * 根据多个用户名查询用户信息
+     * @param params 参数
+     * @return  {@link List<User>}
+     */
+    List<User> selectUserByNamesWithXmlToMap (@Param("params") Map params);
 }

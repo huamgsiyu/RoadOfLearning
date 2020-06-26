@@ -190,4 +190,17 @@
             #{name}
         </foreach>
     </select>
+
+    <select id="selectUserByNamesWithXmlToMap" resultType="com.imooc.mybatis.entity.User">
+        select id,
+            username,
+            age,
+            score
+        from imooc_user
+        where
+        -- 由于 key 是字段名称，因此不能使用#{}作为占位符，只能使用${}在字符串中替换。
+        <foreach collection="params" open="(" close=")" item="value" index="key" separator=" and ">
+            ${key} = #{value}
+        </foreach>
+    </select>
 </mapper>
