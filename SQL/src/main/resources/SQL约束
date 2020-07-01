@@ -1,0 +1,20 @@
+1、非空——NOT NULL
+
+2、默认值——DEFAULT
+
+3、唯一字段——UNIQUE
+
+4、主键——PRIMARY KEY
+
+5、外键——FOREIGN KEY
+
+6、检验字段——CHECK
+
+注意：列级约束与表级约束语法；列级约束直接跟在类型后面，表级约束放在逗号后面，可以对多个列设置约束。
+create table [table_name] (
+    [col1] [datatype1] [constraints1],
+    [col2] [datatype2] [constraints2],
+    [col3] [datatype3] [constraints3],
+    ...,
+    [constraints4]
+);

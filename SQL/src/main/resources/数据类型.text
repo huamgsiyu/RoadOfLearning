@@ -1,0 +1,33 @@
+1、数值型
+    数据类型	    最大容量（字节）	        描述
+    tinyint(size)	    1	                极小整型
+    smallint(size)	    2	                小整型
+    mediumint(size)	    3	                中整型
+    int/integer(size)	4	                整型，最为广泛
+    bigint(size)	    8	                大整型
+    float(size,d)	    4	                单精度小数
+    double(size,d)	    8	                双精度小数
+    decimal(size,d)	    8	                货币类型
+    numberic(size,d)	8	                同decimal
+
+2、字符型
+    数据类型	        可否变长	描述
+    char(size)	    不可	    固定长度短字符串
+    varchar(size)	可	        不固定长度短字符串
+    text	        可	        长字符串，保存文章内容
+    blob	        可	        二进制流，保存图片，媒体信息
+
+3、日期类型（在 SQL 标准中关于时间和日期的数据类型主要有三类）
+    数据类型	        格式	            有效值                             描述
+    time            00:00:00            00:00:00~23.59.59                  时间
+    date            1000-01-01          1000-01-01 ~ 9999-12-31            年月日
+    timestamp       2020-01-12 22:43:38                                    年月日+时间
+
+    注意：不过在不同的数据库中，相应的时间会有所不同，
+        MySQL 中还支持 datetime 来融合 date 和 time；
+        而在 SQL Server 中不支持 timestamp 数据类型，仅支持 datetime 类型；
+        PostgreSQL 对日期类型支持最为复杂，甚至还支持日期范围之类的日期格式。
+    小结：
+        （1）timestamp 会受到时区因素影响，请提前设置数据库正确的配置信息保证数据的正确性。
+        （2）datetime 和 timestamp 二者一定程度上可以通用，但是某些数据库只支持其中的一种。
+        （3）time、date 和 timestamp 都可以像其它数据类型一样使用运算符，如>。
