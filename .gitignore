@@ -1,2 +1,5 @@
 # Project exclude paths
 /Mybatis/target/
+/.idea
+/**/*.iml
+/**/target

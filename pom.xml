@@ -11,6 +11,7 @@
     <modules>
         <module>Mybatis</module>
         <module>SQL</module>
+        <module>InterviewSeason3</module>
     </modules>
 
     <properties>
